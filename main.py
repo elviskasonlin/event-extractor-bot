@@ -1,20 +1,49 @@
 """
-This is a echo bot.
-It echoes any incoming text messages.
+main.py
+
+Currently Echoes incoming messages
+
+To-do
+- Going to need callbacks
+- Going to need async await on (scene ID, reply, user ID) and handle things from there
 """
 
+# SECTION: Import modules
+
 import logging
+import os
 
 from aiogram import Bot, Dispatcher, executor, types
+from decouple import config
 
-API_TOKEN = 'BOT TOKEN HERE'
+# ---
+# SECTION: Get environment variables
+# ---
+
+API_TOKEN = ""
+try:
+   API_TOKEN = config('api_token')
+except Exception as err:
+    raise err
+    print("Please insert the telegram bot api token")
+
+DEBUG = config('debug', default=FALSE, cast=bool)
+
+# ---
+# SECTION: Initialisation
+# ---
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
 # Initialize bot and dispatcher
+# Note: Dispatcher handles and processes incoming updates
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
+
+# ---
+# SECTION: Bot logic
+# ---
 
 @dp.message_handler(commands=['start', 'help'])
 async def send_welcome(message: types.Message):
@@ -33,9 +62,3 @@ async def echo(message: types.Message):
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
 
-
-    """
-    Use environment variables for storing tokens and secret keys
-    Going to need callbacks
-    Going to need async await on (scene ID, reply, user ID) and handle things from there
-    """

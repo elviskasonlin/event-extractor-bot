@@ -12,6 +12,7 @@ ujson = "*"
 cchardet = "*"
 aiodns = "*"
 brotlipy = "*"
+python-decouple = "*"
 
 [requires]
 python_version = "3.8"
