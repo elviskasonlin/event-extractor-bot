@@ -29,6 +29,9 @@ except Exception as err:
 
 DEBUG = config('debug', default=FALSE, cast=bool)
 
+WEBHOOK_URL = "https://api.telegram.org/bot{}/".format{API_TOKEN}
+
+
 # ---
 # SECTION: Initialisation
 # ---
@@ -57,7 +60,13 @@ async def echo(message: types.Message):
     # old style:
     # await bot.send_message(message.chat.id, message.text)
 
-    await message.answer(message.text)
+    await message.answer(message.chat.id, message.text)
+
+async def on_startup(dp):
+    await bot.set_webhook(WEBHOOK_URL)
+
+async def on_shutdown(dp):
+    logging.warning("Shutting down...")
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
