@@ -6,13 +6,8 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-aiogram = "*"
-uvloop = "*"
-ujson = "*"
-cchardet = "*"
-aiodns = "*"
-brotlipy = "*"
 python-decouple = "*"
+python-telegram-bot = "*"
 
 [requires]
 python_version = "3.8"

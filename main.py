@@ -3,71 +3,80 @@ main.py
 
 Currently Echoes incoming messages
 
-To-do
-- Going to need callbacks
-- Going to need async await on (scene ID, reply, user ID) and handle things from there
 """
 
 # SECTION: Import modules
 
 import logging
 import os
-
-from aiogram import Bot, Dispatcher, executor, types
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from decouple import config
-
-# ---
-# SECTION: Get environment variables
-# ---
-
-API_TOKEN = ""
-try:
-   API_TOKEN = config('api_token')
-except Exception as err:
-    raise err
-    print("Please insert the telegram bot api token")
-
-DEBUG = config('debug', default=FALSE, cast=bool)
-
-WEBHOOK_URL = "https://api.telegram.org/bot{}/".format{API_TOKEN}
-
 
 # ---
 # SECTION: Initialisation
 # ---
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
+# Get environment variables
+API_TOKEN = config('api_token', cast=str)
+DEBUG = config('debug', default=FALSE, cast=bool)
+PORT = config('port', default=5000, cast=int)
+WEBHOOK_DOMAIN = config('webhook_domain', cast=str)
+WEBHOOK_URL = WEBHOOK_DOMAIN + API_TOKEN
 
-# Initialize bot and dispatcher
-# Note: Dispatcher handles and processes incoming updates
-bot = Bot(token=API_TOKEN)
-dp = Dispatcher(bot)
+# Configure logging
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # ---
 # SECTION: Bot logic
 # ---
 
-@dp.message_handler(commands=['start', 'help'])
-async def send_welcome(message: types.Message):
-    """
-    This handler will be called when user sends `/start` or `/help` command
-    """
-    await message.reply("Hi!\nI'm EchoBot!\nPowered by aiogram.")
+# Define a few command handlers. These usually take the two arguments update and
+# context. Error handlers also receive the raised TelegramError object in error.
+def start(update, context):
+    """Send a message when the command /start is issued."""
+    update.message.reply_text('Hi!')
 
-@dp.message_handler()
-async def echo(message: types.Message):
-    # old style:
-    # await bot.send_message(message.chat.id, message.text)
+def help(update, context):
+    """Send a message when the command /help is issued."""
+    update.message.reply_text('Help!')
 
-    await message.answer(message.chat.id, message.text)
+def echo(update, context):
+    """Echo the user message."""
+    update.message.reply_text(update.message.text)
 
-async def on_startup(dp):
-    await bot.set_webhook(WEBHOOK_URL)
+def error(update, context):
+    """Log Errors caused by Updates."""
+    logger.warning('Update "%s" caused error "%s"', update, context.error)
 
-async def on_shutdown(dp):
-    logging.warning("Shutting down...")
+def main():
+    """Start the bot."""
+    # Create the Updater and pass it your bot's token.
+    # Make sure to set use_context=True to use the new context based callbacks
+    # Post version 12 this will no longer be necessary
+    updater = Updater(API_TOKEN, use_context=True)
+
+    # Get the dispatcher to register handlers
+    dp = updater.dispatcher
+
+    # on different commands - answer in Telegram
+    dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(CommandHandler("help", help))
+
+    # on noncommand i.e message - echo the message on Telegram
+    dp.add_handler(MessageHandler(Filters.text, echo))
+
+    # log all errors
+    dp.add_error_handler(error)
+
+    # Start the Bot
+    updater.start_webhook(listen="0.0.0.0", port=int(PORT), url_path=API_TOKEN)
+    updater.bot.setWebhook(WEBHOOK_URL)
+
+    # Run the bot until you press Ctrl-C or the process receives SIGINT,
+    # SIGTERM or SIGABRT. This should be used most of the time, since
+    # start_polling() is non-blocking and will stop the bot gracefully.
+    updater.idle()
 
 if __name__ == '__main__':
-    executor.start_polling(dp, skip_updates=True)
-
+    main()
