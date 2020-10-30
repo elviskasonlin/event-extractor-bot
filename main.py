@@ -17,10 +17,10 @@ from decouple import config
 # ---
 
 # Get environment variables
-API_TOKEN = config('api_token', cast=str)
-DEBUG = config('debug', default=FALSE, cast=bool)
-PORT = config('port', default=5000, cast=int)
-WEBHOOK_DOMAIN = config('webhook_domain', cast=str)
+API_TOKEN = config('API_TOKEN', cast=str)
+DEBUG = config('DEBUG', default=False, cast=bool)
+PORT = config('PORT', default=5000, cast=int)
+WEBHOOK_DOMAIN = config('WEBHOOK_DOMAIN', cast=str)
 WEBHOOK_URL = WEBHOOK_DOMAIN + API_TOKEN
 
 # Configure logging
