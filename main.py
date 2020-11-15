@@ -109,7 +109,7 @@ def main():
     # dp.add_handler(MessageHandler(Filters.text, echo))
     
     # Handle msgs that are not commands
-    dp.add_handler(MessageHandler(Filters.command, unknown))
+    dp.add_handler(MessageHandler(Filters.command, unknown_cmd))
 
     # log all errors
     dp.add_error_handler(error)
