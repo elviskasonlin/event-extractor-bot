@@ -1,7 +1,13 @@
 """
 main.py
 
-Currently Echoes incoming messages
+To-do:
+[] !! Add persistence with database and a custom class
+[] ! Add per-user settings
+[] !!! Analysis process
+[] !! Exporting to ical or csv
+[] !! Draw a conversational flow diagram
+[x] !!! Get familiarised with handlers and setting handlers
 
 """
 
@@ -11,6 +17,8 @@ import logging
 import os
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from decouple import config
+
+import defreplies
 
 # ---
 # SECTION: Initialisation
@@ -33,17 +41,42 @@ logger = logging.getLogger(__name__)
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
+#
+# Note:
+# - context: callback context passed by telegram.ext.Handler/Dispatcher
+
 def start(update, context):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Hi!')
+
+    REPLY, PARSE_MODE = defreplies.reply_start()
+    context.bot.send_message(chat_id=update.effective_chat.id, text=REPLY, parse_mode=PARSE_MODE)
 
 def help(update, context):
     """Send a message when the command /help is issued."""
-    update.message.reply_text('Help!')
+
+    REPLY, PARSE_MODE= defreplies.reply_help()
+    context.bot.send_message(chat_id=update.effective_chat.id, text=REPLY, parse_mode=PARSE_MODE)
+
+def settings(update, context):
+    """Handler to set bot settings"""
+
+    """
+    Might want to add in user preference for calendar format.
+    - CSV: Google Calendar
+    - ics/ical: iCalendar Open Format
+    """
+    pass
 
 def echo(update, context):
     """Echo the user message."""
-    update.message.reply_text(update.message.text)
+    context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
+    pass
+
+def unknown_cmd(update, context):
+    """Handle messages that are not commands"""
+
+    REPLY, PARSE_MODE = defreplies.reply_unknown()
+    context.bot.send_message(chat_id=update.effective_chat.id, text=REPLY, parse_mode=PARSE_MODE)
 
 def error(update, context):
     """Log Errors caused by Updates."""
@@ -51,25 +84,35 @@ def error(update, context):
 
 def main():
     """Start the bot."""
+
+    # --- Setting updater and dispatchers ---
+
     # Create the Updater and pass it your bot's token.
-    # Make sure to set use_context=True to use the new context based callbacks
-    # Post version 12 this will no longer be necessary
+    # Note:
+    # - Make sure to set use_context=True to use the new context-based callbacks
+    # - Post version 12 this will no longer be necessary
     updater = Updater(API_TOKEN, use_context=True)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
 
-    # on different commands - answer in Telegram
+    # --- Registering Handlers ---
+
+    # Add Telegram command handlers to respond to valid bot commands (those prefixed with "/")
+    # The command handler accepts a "string", and a callback as well as an optional filter
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
+    
+    # Handle msgs that are not commands
+    dp.add_handler(MessageHandler(Filters.command, unknown))
 
     # log all errors
     dp.add_error_handler(error)
 
-    # Start the Bot
+    # --- Start the Bot ---
     updater.start_webhook(listen="0.0.0.0", port=int(PORT), url_path=API_TOKEN)
     updater.bot.setWebhook(WEBHOOK_URL)
 
