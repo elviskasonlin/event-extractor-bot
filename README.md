@@ -18,6 +18,11 @@ For any code changes, just push the code to the master branch on GitHub. Heroku 
 
 ## To-do
 
-1. Set up handlers for the calender text entry and processing
-2. Set up available commands hint
-3. Set up separate development and production environments
+[x] Set up handlers for the calender text entry and processing
+[] Set up available commands hint
+[] !! Add persistence with database and a custom class
+[] ! Add per-user settings
+[] !!! Analysis process
+[] !! Exporting to ical or csv
+[] !! Draw a conversational flow diagram
+[x] !!! Get familiarised with handlers and setting handlers

@@ -18,7 +18,9 @@ import os
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from decouple import config
 
-import defreplies
+import lib.defreplies
+import lib.cal
+import lib.analysis
 
 # ---
 # SECTION: Initialisation
@@ -104,7 +106,7 @@ def main():
     dp.add_handler(CommandHandler("help", help))
 
     # on noncommand i.e message - echo the message on Telegram
-    dp.add_handler(MessageHandler(Filters.text, echo))
+    # dp.add_handler(MessageHandler(Filters.text, echo))
     
     # Handle msgs that are not commands
     dp.add_handler(MessageHandler(Filters.command, unknown))
