@@ -18,9 +18,9 @@ import os
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from decouple import config
 
-import lib.defreplies
-import lib.cal
-import lib.analysis
+import src.defreplies
+import src.cal
+import src.analysis
 
 # ---
 # SECTION: Initialisation
