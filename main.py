@@ -56,7 +56,7 @@ def start(update, context):
 def help(update, context):
     """Send a message when the command /help is issued."""
 
-    REPLY, PARSE_MODE= defreplies.reply_help()
+    REPLY, PARSE_MODE = defreplies.reply_help()
     context.bot.send_message(chat_id=update.effective_chat.id, text=REPLY, parse_mode=PARSE_MODE)
 
 def settings(update, context):
