@@ -69,6 +69,9 @@ def settings(update, context):
     """
     pass
 
+def analyse(update, context):
+    msg_to_analyse = update.message.text
+
 def echo(update, context):
     """Echo the user message."""
     context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
@@ -104,6 +107,7 @@ def main():
     # The command handler accepts a "string", and a callback as well as an optional filter
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("analyse", analyse))
 
     # on noncommand i.e message - echo the message on Telegram
     # dp.add_handler(MessageHandler(Filters.text, echo))
