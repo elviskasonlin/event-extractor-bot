@@ -27,7 +27,7 @@ def reply_unknown():
 
     reply_type = "MarkdownV2"
     reply = """
-    Sorry, I do not understand your request\. Please type /help to learn more about available commands.
+    Sorry, I do not understand your request\. Please type /help to learn more about available commands
     """
  
     return reply, reply_type
