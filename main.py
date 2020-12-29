@@ -18,9 +18,9 @@ import os
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from decouple import config
 
-import src.defreplies as defreplies
-import src.cal as cal
-import src.analysis as analysis
+import defaults.replies as REPLIES
+import src.calendar as CALENDER
+import src.analysis as ANALYSIS
 
 # ---
 # SECTION: Initialisation
@@ -50,13 +50,13 @@ logger = logging.getLogger(__name__)
 def start(update, context):
     """Send a message when the command /start is issued."""
 
-    REPLY, PARSE_MODE = defreplies.reply_start()
+    REPLY, PARSE_MODE = REPLIES.reply_start()
     context.bot.send_message(chat_id=update.effective_chat.id, text=REPLY, parse_mode=PARSE_MODE)
 
 def help(update, context):
     """Send a message when the command /help is issued."""
 
-    REPLY, PARSE_MODE = defreplies.reply_help()
+    REPLY, PARSE_MODE = REPLIES.reply_help()
     context.bot.send_message(chat_id=update.effective_chat.id, text=REPLY, parse_mode=PARSE_MODE)
 
 def settings(update, context):
@@ -80,7 +80,7 @@ def echo(update, context):
 def unknown_cmd(update, context):
     """Handle messages that are not commands"""
 
-    REPLY, PARSE_MODE = defreplies.reply_unknown()
+    REPLY, PARSE_MODE = REPLIES.reply_unknown()
     context.bot.send_message(chat_id=update.effective_chat.id, text=REPLY, parse_mode=PARSE_MODE)
 
 def error(update, context):
