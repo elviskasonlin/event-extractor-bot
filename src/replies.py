@@ -44,7 +44,8 @@ def reply_help():
     reply = """
     *Help Section*
     1\. Type /start to start the bot
-    2\. Type /analyse followed by a space and your message to get your results straight away
+    2\. Type /settings to change bot settings
+    3\. Type /help to show this menu again
     """
  
     return reply, reply_type
