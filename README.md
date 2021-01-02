@@ -1,5 +1,5 @@
-# event-extractor-bot
-A bot that extracts event details from a given event description and creates a calendar entry
+# Event Extractor Telegram Bot
+A telegram bot that extracts event details from a given event description and creates a calendar entry for the user.
 
 Uses ```python-telegram-bot``` wrapper for telegram bot API and uses ```heroku``` to deploy.
 
@@ -23,11 +23,11 @@ For any code changes, just push the code to the master branch on GitHub. Heroku 
 
 ## To-do
 
-[x] Set up handlers for the calender text entry and processing
-[] Set up available commands hint
-[] !! Add persistence with database and a custom class
-[] ! Add per-user settings
-[] !!! Analysis process
-[] !! Exporting to ical or csv
-[x] !! Draw a flow diagram
-[x] !!! Get familiarised with handlers and setting handlers
+- [x] Set up handlers for the calender text entry and processing
+- [] Set up available commands hint
+- [] !! Add persistence with database and a custom class
+- [] ! Add per-user settings
+- [] !!! Analysis process
+- [] !! Exporting to ical or csv
+- [x] !! Draw a flow diagram
+- [x] !!! Get familiarised with handlers and setting handlers

@@ -42,9 +42,9 @@ def reply_help():
 
     reply_type = ParseMode.MARKDOWN_V2
     reply = """
-    *Help Section*
-    1. Type /start to start the bot
-    2. Type /analyse followed by a space and your message to get your results straight away
+    *Help Section*\
+    1\. Type /start to start the bot\
+    2\. Type /analyse followed by a space and your message to get your results straight away
     """
  
     return reply, reply_type
@@ -59,7 +59,7 @@ def reply_settings():
 
     reply_type = ParseMode.MARKDOWN_V2
     reply = """
-    *Settings*
+    *Settings*\
     This bot does not offer any settings to customise at the moment
     """
  
@@ -75,7 +75,7 @@ def reply_unknown():
 
     reply_type = ParseMode.MARKDOWN_V2
     reply = """
-    Sorry, I do not understand your request\. Please type /help to learn more about available commands
+    Sorry\, I do not understand your request\. Please type /help to learn more about available commands
     """
  
     return reply, reply_type
