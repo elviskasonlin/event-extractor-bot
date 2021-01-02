@@ -1,7 +1,11 @@
 # event-extractor-bot
 A bot that extracts event details from a given event description and creates a calendar entry
 
-Uses ```python-telegram-bot``` wrapper for telegram bot API and uses ```heroku``` to deploy
+Uses ```python-telegram-bot``` wrapper for telegram bot API and uses ```heroku``` to deploy.
+
+More information can be found in /planning folder.
+- High-level planning: /high-level.md
+- Low-level planning: /low-level.md
 
 ## Setting up the dev environment
 
@@ -24,5 +28,5 @@ For any code changes, just push the code to the master branch on GitHub. Heroku 
 [] ! Add per-user settings
 [] !!! Analysis process
 [] !! Exporting to ical or csv
-[] !! Draw a conversational flow diagram
+[x] !! Draw a flow diagram
 [x] !!! Get familiarised with handlers and setting handlers
