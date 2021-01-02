@@ -85,7 +85,9 @@ def settings(update: telegram.Update, context: telegram.ext.CallbackContext) -> 
     - CSV: Google Calendar
     - ics/ical: iCalendar Open Format
     """
-    pass
+
+    REPLY, PARSE_MODE = REPLIES.reply_settings()
+    context.bot.send_message(chat_id=update.effective_chat.id, text=REPLY, parse_mode=PARSE_MODE)
 
 def echo(update: telegram.Update, context: telegram.ext.CallbackContext) -> None:
     """Echos the user message. Currently not in use.
