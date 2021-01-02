@@ -1,8 +1,10 @@
 """
-defreplies.py
+replies.py
 
 The default replies to bot commands
 """
+
+from telegram import ParseMode
 
 # NOTE
 # For MarkdownV2 as a text format used in telegram bot api 4.5 onwards, the following characters much be escaped:
@@ -22,10 +24,10 @@ def reply_start():
 
     Returns:
         reply (str): The standard reply for /start
-        reply_type (str): Type of reply to be provided as an argument when passed into telegram message handler
+        reply_type (obj): Type of reply to be provided as an argument when passed into telegram message handler
     """
 
-    reply_type = "MarkdownV2"
+    reply_type = ParseMode.MARKDOWN_V2
     reply = "Hi\! This bot extracts key event details from a given text message and returns a completed calendar entry in either icalendar or csv format"
 
     return reply, reply_type
@@ -35,10 +37,10 @@ def reply_help():
     
     Returns:
         reply (str): The standard reply for /help
-        reply_type (str): Type of reply to be provided as an argument when passed into telegram message handler
+        reply_type (obj): Type of reply to be provided as an argument when passed into telegram message handler
     """
 
-    reply_type = "MarkdownV2"
+    reply_type = ParseMode.MARKDOWN_V2
     reply = """
     *Help Section*
     1. Type /start to start the bot
@@ -52,10 +54,10 @@ def reply_settings():
     
     Returns:
         reply (str): The standard reply for /settings
-        reply_type (str): Type of reply to be provided as an argument when passed into telegram message handler
+        reply_type (obj): Type of reply to be provided as an argument when passed into telegram message handler
     """
 
-    reply_type = "MarkdownV2"
+    reply_type = ParseMode.MARKDOWN_V2
     reply = """
     *Settings*
     This bot does not offer any settings to customise at the moment
@@ -68,10 +70,10 @@ def reply_unknown():
     
     Returns:
         reply (str): The standard reply for invalid commands
-        reply_type (str): Type of reply to be provided as an argument when passed into telegram message handler
+        reply_type (obj): Type of reply to be provided as an argument when passed into telegram message handler
     """
 
-    reply_type = "MarkdownV2"
+    reply_type = ParseMode.MARKDOWN_V2
     reply = """
     Sorry, I do not understand your request\. Please type /help to learn more about available commands
     """

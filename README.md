@@ -7,11 +7,12 @@ More information can be found in /planning folder.
 - High-level planning: /high-level.md
 - Low-level planning: /low-level.md
 
-## Setting up the dev environment
+## Setting up the environment
 
 1. (Optional) Install ```pyenv``` to manage your python versions. Install ```virtualenv``` to enable python virtual environments.
 2. Install ```pipenv``` to manage per-project dependencies and install the packages required by this project.
-3. Run ```pipenv install``` to install all the dependencies to get your dev environment up and running
+3. Run ```pipenv install``` to install all the dependencies to get the environment up and running
+    3.1 Run ```pipenv install --dev``` to install dev dependencies like sphinx
 4. Run ```pipenv shell``` to enter into the ```pipenv``` environment with all the dependencies initialised and installed
 
 For any code changes, just push the code to the master branch on GitHub. Heroku will automatically build and deploy the new build to production.
