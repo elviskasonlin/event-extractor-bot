@@ -10,6 +10,3 @@ rst2pdf = "*"
 [packages]
 python-decouple = "*"
 python-telegram-bot = "*"
-
-[requires]
-python_version = "3.8.2"
